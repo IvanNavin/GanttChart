@@ -1,29 +1,32 @@
-import { FrappeGantt } from 'frappe-gantt-react';
-import { useEffect, useState } from 'react';
+import { FrappeGantt } from 'frappe-gantt-react'
+import { Task } from 'frappe-gantt-react/typings/Task'
+import { useEffect, useRef, useState } from 'react'
 
-import { useTypedSelector } from '../../store/store';
-import { IFrapeGanttTask } from '../../types/types';
-import { dataToTasks } from '../../utils/dataToTasks';
+import { useTypedSelector } from '../../store/store'
+import { ViewMode } from '../../types/types'
+
+import s from './TimeTable.module.sass'
 
 export const TimeTable = () => {
-  const [ tasks, setTasks ] = useState<null | IFrapeGanttTask[]>(null);
+  const [viewMode, setViewMode] = useState(ViewMode.Month)
+  const { data, dateType } = useTypedSelector((state) => state.gridReducer)
 
-  const { data } = useTypedSelector((state) => state.gridReducer);
-  
   useEffect(() => {
-    setTasks(dataToTasks(data));
-  })
-  
+    setViewMode(Object.values(dateType)[0])
+  }, [dateType])
+
   return (
-    <>
-      <FrappeGantt
-        tasks={tasks}
-        viewMode={}
-        onClick={task => console.log(task)}
-        onDateChange={(task, start, end) => console.log(task, start, end)}
-        onProgressChange={(task, progress) => console.log(task, progress)}
-        onTasksChange={tasks => console.log(tasks)}
-      />
-    </>
-  );
-};
+    <div className={s.wrapper}>
+      {data && (
+        <FrappeGantt
+          tasks={data as Task[]}
+          viewMode={viewMode}
+          onClick={(task) => console.log(task)}
+          onDateChange={(task, start, end) => console.log(task, start, end)}
+          onProgressChange={(task, progress) => console.log(task, progress)}
+          onTasksChange={(tasks) => console.log(tasks)}
+        />
+      )}
+    </div>
+  )
+}

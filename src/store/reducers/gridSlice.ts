@@ -1,18 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { mockData } from '../../__mock__/mockData';
-import { EDateType,IGanttTask, IOption } from '../../types/types';
-
-
+import { mockData } from '../../__mock__/mockData'
+import { IFrapeGanttTask, IOption, ViewMode } from '../../types/types'
 
 interface IGridSlice {
-  data: IGanttTask[]
+  data: IFrapeGanttTask[]
   dateType: IOption
 }
 
 const initialState: IGridSlice = {
   data: mockData,
-  dateType: { value: EDateType.DAYS, label: EDateType.DAYS },
+  dateType: { value: ViewMode.Month, label: ViewMode.Month },
 }
 
 const gridSlice = createSlice({
@@ -20,13 +18,13 @@ const gridSlice = createSlice({
   initialState,
   reducers: {
     updateDateType(state: IGridSlice, { payload }: PayloadAction<IOption>) {
-      state.dateType = payload;
+      state.dateType = payload
     },
-    resetGrid: () => initialState, 
-  }
-});
+    resetGrid: () => initialState,
+  },
+})
 
-const { reducer, actions } = gridSlice;
+const { reducer, actions } = gridSlice
 
-export default reducer;
-export const { updateDateType, resetGrid } = actions;
+export default reducer
+export const { updateDateType, resetGrid } = actions

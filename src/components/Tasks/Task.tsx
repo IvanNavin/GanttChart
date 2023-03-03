@@ -1,13 +1,18 @@
-import s from './Tasks.module.sass';
+import s from './Tasks.module.sass'
 
 interface IProps {
-  taskName: string;
-};
+  taskName: string
+}
 
-export const Task = ({taskName}: IProps) => {
+export const Task = ({ taskName }: IProps) => {
   return (
     <div className={s.Task}>
-      { taskName }
+      <span
+        className={s.circle}
+        style={{ background: `#${Math.random().toString(16).substr(-6)}` }}
+      />
+      <span>{taskName}</span>
+      <span className={s.arrow} />
     </div>
-  );
-};
+  )
+}

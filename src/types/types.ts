@@ -1,24 +1,27 @@
 export interface IGanttTask {
-  name: string,
-  start_date: string,
-  end_date: string,
-};
+  name: string
+  start_date: string
+  end_date: string
+}
+
+export enum ViewMode {
+  QuarterDay = 'Quarter Day',
+  HalfDay = 'Half Day',
+  Day = 'Day',
+  Week = 'Week',
+  Month = 'Month',
+}
 
 export interface IFrapeGanttTask {
-  id: string,
-  name: string,
-  start: string,
-  end: string,
-  progress: number,
+  id: string
+  name: string
+  start: string
+  end: string
+  progress: number
   dependencies: string
 }
 
-export enum EDateType {
-  DAYS = 'Days',
-  MONTH = 'Months',
-}
-
 export interface IOption {
-  value: EDateType,
-  label: EDateType,
+  value: ViewMode
+  label: ViewMode
 }
