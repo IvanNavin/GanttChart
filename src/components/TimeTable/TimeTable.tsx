@@ -1,6 +1,6 @@
 import { FrappeGantt } from 'frappe-gantt-react'
 import { Task } from 'frappe-gantt-react/typings/Task'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useTypedSelector } from '../../store/store'
 import { ViewMode } from '../../types/types'

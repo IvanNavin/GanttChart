@@ -9,7 +9,7 @@ export const mockData = [
   },
   {
     id: 'Task 2',
-    name: 'Task 2',
+    name: 'Truly wonderful, the mind of a child is.',
     start: '2023-01-17',
     end: '2023-03-11',
     progress: 50,

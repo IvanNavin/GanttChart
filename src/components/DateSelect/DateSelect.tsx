@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Select from 'react-select'
+import { OnChangeValue } from 'react-select/dist/declarations/src/types'
 
 import { useTypedSelector } from '../../store/store'
 import { IOption, ViewMode } from '../../types/types'
@@ -17,11 +18,10 @@ export const DateSelect = () => {
   const { updateDateType } = useActions()
   const { dateType } = useTypedSelector((state) => state.gridReducer)
 
-  const onChange = (value: any) => {
-    // setValue(value)
-    updateDateType(value)
+  const onChange = (value: OnChangeValue<IOption, false>) => {
+    value && updateDateType(value)
   }
-  console.count('render')
+
   useEffect(() => {
     dateType && setValue(dateType)
   }, [dateType])
