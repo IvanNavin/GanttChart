@@ -1,9 +1,11 @@
 import { FrappeGantt } from 'frappe-gantt-react'
 import { Task } from 'frappe-gantt-react/typings/Task'
+import { Moment } from 'moment/moment'
 import { useEffect, useState } from 'react'
 
 import { useTypedSelector } from '../../store/store'
 import { ViewMode } from '../../types/types'
+import { useActions } from '../../utils/useActions'
 
 import s from './TimeTable.module.sass'
 
@@ -41,6 +43,15 @@ const makeToday = (str: string) => {
 export const TimeTable = () => {
   const [viewMode, setViewMode] = useState(ViewMode.Month)
   const { data, dateType } = useTypedSelector((state) => state.gridReducer)
+  const { updateDate, updateProgress } = useActions()
+
+  const onDateChange = (task: Task, start: Moment, end: Moment) => {
+    updateDate({ name: task.name, start, end })
+  }
+
+  const onProgressChange = (task: Task, progress: number) => {
+    updateProgress({ name: task.name, progress })
+  }
 
   useEffect(() => {
     const vm = Object.values(dateType)[0]
@@ -66,10 +77,10 @@ export const TimeTable = () => {
         <FrappeGantt
           tasks={data as Task[]}
           viewMode={viewMode}
-          onClick={(task) => console.log(task)}
-          onDateChange={(task, start, end) => console.log(task, start, end)}
-          onProgressChange={(task, progress) => console.log(task, progress)}
-          onTasksChange={(tasks) => console.log(tasks)}
+          onDateChange={onDateChange}
+          onProgressChange={onProgressChange}
+          // onClick={(task) => console.log(task)}
+          // onTasksChange={onTasksChange}
         />
       )}
     </div>

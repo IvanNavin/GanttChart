@@ -9,7 +9,7 @@ export const Task = ({ taskName }: IProps) => {
     <div className={s.Task}>
       <span
         className={s.circle}
-        style={{ background: `#${Math.random().toString(16).substr(-6)}` }}
+        style={{ background: `#${Math.random().toString(16).substring(-6)}` }}
       />
       <span>{taskName}</span>
       <span className={s.arrow} />

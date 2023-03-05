@@ -1,16 +1,25 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux'
 
-import { bindActionCreators } from '@reduxjs/toolkit';
+import { bindActionCreators } from '@reduxjs/toolkit'
 
-import { resetGrid, updateDateType } from "../store/reducers/gridSlice";
-import { AppDispatch } from "../store/store";
+import {
+  addTask,
+  resetGrid,
+  updateDate,
+  updateDateType,
+  updateProgress,
+} from '../store/reducers/gridSlice'
+import { AppDispatch } from '../store/store'
 
 const actions = {
   updateDateType,
+  updateDate,
+  updateProgress,
+  addTask,
   resetGrid,
 }
 
 export const useActions = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  return bindActionCreators(actions, dispatch);
-};
+  const dispatch = useDispatch<AppDispatch>()
+  return bindActionCreators(actions, dispatch)
+}
