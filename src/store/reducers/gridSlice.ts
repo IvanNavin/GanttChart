@@ -4,25 +4,25 @@ import { Moment } from 'moment/moment'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { mockData } from '../../__mock__/mockData'
-import { IOption, ViewMode } from '../../types/types'
+import { ViewMode } from '../../types/types'
 import { Task } from '../../utils/Task'
 
 interface IGridSlice {
   data: Partial<Task>[]
-  dateType: IOption
+  viewMode: ViewMode
 }
 
 const initialState: IGridSlice = {
   data: mockData.map((x) => new Task(x)),
-  dateType: { value: ViewMode.Month, label: ViewMode.Month },
+  viewMode: ViewMode.Month,
 }
 
 const gridSlice = createSlice({
   name: 'grid',
   initialState,
   reducers: {
-    updateDateType(state: IGridSlice, { payload }: PayloadAction<IOption>) {
-      state.dateType = payload
+    updateViewMode(state: IGridSlice, { payload }: PayloadAction<ViewMode>) {
+      state.viewMode = payload
     },
     updateDate(
       state: IGridSlice,
@@ -58,6 +58,17 @@ const gridSlice = createSlice({
     addTask(state: IGridSlice, { payload }: PayloadAction<Partial<Task>>) {
       state.data.push(new Task(payload))
     },
+    editTask(
+      state: IGridSlice,
+      { payload: { taskName, task } }: PayloadAction<{ taskName: string; task: Partial<Task> }>,
+    ) {
+      const newData = state.data.filter((task) => task.name !== taskName)
+      newData.push(new Task(task))
+      state.data = newData
+    },
+    deleteTask(state: IGridSlice, { payload }: PayloadAction<string>) {
+      state.data = state.data.filter((task) => task.name !== payload)
+    },
     resetGrid: () => initialState,
   },
 })
@@ -65,4 +76,12 @@ const gridSlice = createSlice({
 const { reducer, actions } = gridSlice
 
 export default reducer
-export const { updateDateType, updateDate, updateProgress, addTask, resetGrid } = actions
+export const {
+  updateViewMode,
+  updateDate,
+  updateProgress,
+  addTask,
+  editTask,
+  deleteTask,
+  resetGrid,
+} = actions

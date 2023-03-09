@@ -13,7 +13,9 @@ export const Tasks = () => {
   return (
     <div className={s.Tasks}>
       <DateSelect />
-      {data.map(({ name }) => name && <Task taskName={name} key={name} />)}
+      {data.map((task) => (
+        <Task task={task} key={task.name} />
+      ))}
     </div>
   )
 }

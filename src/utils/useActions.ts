@@ -4,18 +4,22 @@ import { bindActionCreators } from '@reduxjs/toolkit'
 
 import {
   addTask,
+  deleteTask,
+  editTask,
   resetGrid,
   updateDate,
-  updateDateType,
   updateProgress,
+  updateViewMode,
 } from '../store/reducers/gridSlice'
 import { AppDispatch } from '../store/store'
 
 const actions = {
-  updateDateType,
+  updateViewMode,
   updateDate,
   updateProgress,
   addTask,
+  editTask,
+  deleteTask,
   resetGrid,
 }
 

@@ -1,34 +1,30 @@
-import { useEffect, useState } from 'react'
-import Select from 'react-select'
-import { OnChangeValue } from 'react-select/dist/declarations/src/types'
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material'
 
 import { useTypedSelector } from '../../store/store'
-import { IOption, ViewMode } from '../../types/types'
+import { ViewMode } from '../../types/types'
 import { useActions } from '../../utils/useActions'
 
 import s from './DateSelect.module.sass'
 
-const options: IOption[] = [
-  { value: ViewMode.Day, label: ViewMode.Day },
-  { value: ViewMode.Month, label: ViewMode.Month },
-]
+const options: ViewMode[] = [ViewMode.Day, ViewMode.Month]
 
 export const DateSelect = () => {
-  const [value, setValue] = useState<null | IOption>(null)
-  const { updateDateType } = useActions()
-  const { dateType } = useTypedSelector((state) => state.gridReducer)
+  const { updateViewMode } = useActions()
+  const { viewMode } = useTypedSelector((state) => state.gridReducer)
 
-  const onChange = (value: OnChangeValue<IOption, false>) => {
-    value && updateDateType(value)
+  const onChange = ({ target: { value } }: SelectChangeEvent<ViewMode>) => {
+    value && updateViewMode(value as ViewMode)
   }
-
-  useEffect(() => {
-    dateType && setValue(dateType)
-  }, [dateType])
 
   return (
     <div className={s.wrapper}>
-      <Select<IOption> value={value} options={options} onChange={onChange} />
+      <Select size='small' value={viewMode} onChange={onChange}>
+        {options.map((item) => (
+          <MenuItem key={item} value={item}>
+            {item}
+          </MenuItem>
+        ))}
+      </Select>
     </div>
   )
 }

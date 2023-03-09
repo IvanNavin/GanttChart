@@ -5,8 +5,3 @@ export enum ViewMode {
   Week = 'Week',
   Month = 'Month',
 }
-
-export interface IOption {
-  value: ViewMode
-  label: ViewMode
-}

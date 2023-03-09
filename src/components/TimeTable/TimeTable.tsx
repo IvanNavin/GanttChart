@@ -1,7 +1,7 @@
 import { FrappeGantt } from 'frappe-gantt-react'
 import { Task } from 'frappe-gantt-react/typings/Task'
 import { Moment } from 'moment/moment'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useTypedSelector } from '../../store/store'
 import { ViewMode } from '../../types/types'
@@ -41,8 +41,7 @@ const makeToday = (str: string) => {
 }
 
 export const TimeTable = () => {
-  const [viewMode, setViewMode] = useState(ViewMode.Month)
-  const { data, dateType } = useTypedSelector((state) => state.gridReducer)
+  const { data, viewMode } = useTypedSelector((state) => state.gridReducer)
   const { updateDate, updateProgress } = useActions()
 
   const onDateChange = (task: Task, start: Moment, end: Moment) => {
@@ -54,11 +53,7 @@ export const TimeTable = () => {
   }
 
   useEffect(() => {
-    const vm = Object.values(dateType)[0]
-
-    setViewMode(Object.values(dateType)[0])
-
-    if (vm === ViewMode.Day) {
+    if (viewMode === ViewMode.Day) {
       setTimeout(() => {
         const todayColumn = document.querySelector('.today-highlight')
         const gantt = document.querySelector('.gantt')
@@ -69,7 +64,7 @@ export const TimeTable = () => {
         }
       })
     }
-  }, [dateType])
+  }, [viewMode])
 
   return (
     <div className={s.wrapper}>
